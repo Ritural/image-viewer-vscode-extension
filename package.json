@@ -14,13 +14,13 @@
   "test": "node ./out/test/runTest.js"
  },
  "activationEvents": [
-  "onCommand:extension.imageInsert"
+  "onCommand:extension.viewProjectImages"
  ],
  "contributes": {
   "commands": [
    {
-    "command": "extension.imageInsert",
-    "title": "Image insert"
+    "command": "extension.viewProjectImages",
+    "title": "View project images"
    }
   ]
  },
