@@ -1,6 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { getFiles } from './getFiles';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -16,9 +17,30 @@ export function activate(context: vscode.ExtensionContext) {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World!');
+		vscode.window.showInformationMessage('Loading images...');
 
-    vscode.window.showInformationMessage('TEST TEST!');
+    const workspaceFolders =  vscode.workspace.workspaceFolders;
+
+    if (!workspaceFolders || workspaceFolders.length === 0) {
+      // No project open
+      vscode.window.showInformationMessage('No project open!');
+      return;
+    }
+
+    const rootPath = workspaceFolders[0].uri.fsPath;
+    console.log('🧐🧐🧐 rootPath', rootPath);
+
+    const foldersToCheck = ['src', 'public'];
+    const imageExtensions = [
+      'svg',
+      'png',
+      'jpg',
+      'jpeg',
+    ];
+
+    getFiles({ rootPath, foldersToCheck, imageExtensions }).then((filteredFiles) => {
+      console.log('🧐🧐🧐 filteredFiles', filteredFiles);
+    });
 	});
 
 	context.subscriptions.push(disposable);
